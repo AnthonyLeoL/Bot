@@ -6,7 +6,7 @@ TOKEN = 'NTIxODQxODI4OTk2MzE3MTg0.DvCS8Q.zXwIvwsKP-vWl-M5K5SoF_KGh5k'
 client = discord.Client()
 
 def vulgar(msg):
-    replace_with = '!@#$%^&*()\':;.,><uwu--_--=+`~\|][}{[/?'
+    replace_with = '!@#$%^&*()\':;.,><UwU--_--=+`~\|][}{[/?'
 
     bad = False
 
@@ -27,6 +27,7 @@ def vulgar(msg):
         if i in msg:
             pattern = r"\b" + re.escape(i) + r"\b"
             clean_msg = re.sub(pattern, replace_with[:len(i)-1],msg)
+            bad = True
             bad = True
 
 
