@@ -28,7 +28,6 @@ def vulgar(msg):
             pattern = r"\b" + re.escape(i) + r"\b"
             clean_msg = re.sub(pattern, replace_with[:len(i)-1],msg)
             bad = True
-            bad = True
 
 
 
