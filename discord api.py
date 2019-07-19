@@ -10,7 +10,7 @@ replace_with = '!@#$%^&*()\':;.,><UwU--_--=+`~\|][}{[/?'
 def vulgar(msg):
     bad = False
     clean_msg = None 
-    temp_msg = re.sub(r"[^a-zA-Z0-9]+", '', msg.lower())
+    temp_msg = re.sub(r"[^a-zA-Z0-9]+", ' ', msg.lower())
     
     for i in banned:
         if i in temp_msg:
@@ -19,15 +19,20 @@ def vulgar(msg):
             start = temp_msg.find(i)
             p_start = min(temp_msg[:start].find(" "),start)
             if p_start != -1:
-                start = p_start
+                start = p_start+1
             else: 
                 start =0
-                
-            end = max(temp_msg[start:].find(" "),len(temp_msg))
-            potential = temp_msg[start:end]
+
+            p_end = temp_msg[start:].find(" ")
+
+            if p_end != -1:
+                end = p_end
+            else:
+                end = len(temp_msg)
+            potential = temp_msg[start:start+end]
 
             if potential.strip() not in white_list:
-                clean_msg = re.sub(re.escape(i), replace_with[:len(i)-1],temp_msg)
+                clean_msg = re.sub(re.escape(i), replace_with[:len(i)],temp_msg)
                 bad = True
 
 
