@@ -1,1 +1,12 @@
-# Bot
+# Discord Censorship Bot
+<p>This bot acts as a language moderater for discord servers. This project started as an exercise working with discord API and evolved into a working product utilizing many aspects of NLP</p>
+
+<h2>Languages, Libraries, and Planning</h2>
+<p>This project was written in python using the Discord API. String manipulation was essential due to the nature of the project, so regex was chosen as the primary method of parsing through strings. After doing some research on text censoring, I found out that the hard part would be to censor chosen words without censoring very similar words (I.e. gr/ass). With this in mind, I decided to work with a black list and a white list. If a word matched with something in black list, but not with something in white list, censor it. Otherwise, leave it.</p>
+<h2>Process</h2>
+<h3>Step 1: Create black and white lists</h3>
+<p>The intial hurdle was to get two good lists that worked for the project, unfortunately there were none to be found. So I created a black list by finding a standard set of curse words, and manually adding in some more... creative ways of expressing displeasure. I then took the built in dictionary from mac OSX and rand it against the black list. If a word in dictionary contained, but was not equal to, a word on the black list, add it to the white list. After a few iterations, each time adding more words to the black list, the lists seemed satisfactory. Upon starting the bot, the lists are loading into sets for constant comparison time<p>
+ <h3>Step 2: Text processing</h3>
+ <p>The next step was to take in a string and filter out any objectionable words. First, special characters are removed. Then the string is checked for potnetial black listed words. If there is one, the whole word is grabbed, from previous white space to following, and that is considered a potential bad word. The potential bad word is then checked against the white list, if it is not in the white list it is then confirmed as a bad word, it is replaced with N special characters (where N= length of the censored word), and the loop repeats to censor out and other black listed words it finds. This approach doesn't allow for "creative swearing" (e.g. adding an extra letter). </p>
+ <h3>Step 3: Bot action</h3>
+ <p>Finally, I wrote the bot that makes use of all the previous work. The bot is waiting for any message to be sent. When that event occurs, it calls the censor function, and if a black listed word is found, it then deletes the user's message and replaces it with a censored version, along with a message to "watch your mouth"</p>
